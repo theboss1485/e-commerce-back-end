@@ -1,3 +1,4 @@
+// This file seeds the table in the database corresponding to the Tag model.
 const { Tag } = require('../models');
 
 const tagData = [

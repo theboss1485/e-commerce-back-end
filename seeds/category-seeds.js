@@ -1,3 +1,5 @@
+// This file seeds the table in the database corresponding to the Category model.
+
 const { Category } = require('../models');
 
 const categoryData = [

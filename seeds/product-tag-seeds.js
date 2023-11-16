@@ -1,3 +1,4 @@
+// This file seeds the table in the database corresponding to the ProductTag model.
 const { ProductTag } = require('../models');
 
 const productTagData = [

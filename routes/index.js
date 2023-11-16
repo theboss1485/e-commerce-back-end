@@ -1,3 +1,5 @@
+//This index file lets us use the /api path.
+
 const router = require('express').Router();
 const apiRoutes = require('./api');
 

@@ -1,43 +1,39 @@
+// This file contains the `/api/categories` endpoint.
+
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
-// The `/api/categories` endpoint
 
+/*This GET route finds all the categories and includes their associated products. */
 router.get('/', (req, res) => {
-
-  // find all categories
-  // be sure to include its associated Products
-
-  //{ include: Product}
 
     Category.findAll({include: Product}).then((categoryData) => {
 
-        res.json(categoryData);
+        res.status(200).json(categoryData);
     
     }).catch((error) =>{
 
-        res.json(error);
+        res.status(400).json(error);
     })
   
 });
 
+/*This GET route finds one category by its ID and includes its associated products. */
 router.get('/:id', (req, res) => {
 
-    // find one category by its `id` value
-  // be sure to include its associated Products
     Category.findByPk(req.params.id, {include: Product}).then((categoryData) => {
 
-        res.json(categoryData);
+        res.status(200).json(categoryData);
     
     }).catch((error) =>{
 
-        res.json(error);
+        res.status(400).json(error);
     })
 });
 
-router.post('/', (req, res) => {
 
-  // create a new category
+// This POST route creates a new category.
+router.post('/', (req, res) => {
 
     Category.create({
 
@@ -45,17 +41,17 @@ router.post('/', (req, res) => {
 
     }).then((newProduct) => {
 
-        res.json(newProduct);
+        res.status(200).json(newProduct);
     
     }).catch((error) =>{
 
-        res.json(error);
+        res.status(400).json(error);
     })
 });
 
+//This PUT route updates a category by its `id` value.
 router.put('/:id', (req, res) => {
 
-  // update a category by its `id` value
     Category.update(
 
         {
@@ -70,17 +66,18 @@ router.put('/:id', (req, res) => {
 
     ).then((updatedCategory) => {
 
-        res.json(updatedCategory);
+        res.status(200).json(updatedCategory);
     
     }).catch((error) => {
 
-        res.json(error);
+        res.status(400).json(error);
     });
 });
 
+//This DELETE route deletes a category by its `id` value.
 router.delete('/:id', (req, res) => {
 
-  // delete a category by its `id` value
+  
     Category.destroy({
 
         where: {
@@ -90,12 +87,11 @@ router.delete('/:id', (req, res) => {
 
     }).then((deletedCategory) => {
 
-        res.json(deletedCategory);
-        console.log("DeletedCategory", deletedCategory)
+        res.status(200).json(deletedCategory);
     
     }).catch((error) => {
 
-        res.json(error)
+        res.status(400).json(error);
     })
 });
 
