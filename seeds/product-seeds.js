@@ -1,3 +1,4 @@
+// This file seeds the table in the database corresponding to the Product model.
 const { Product } = require('../models');
 
 const productData = [

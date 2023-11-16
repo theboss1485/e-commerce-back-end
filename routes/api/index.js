@@ -1,3 +1,5 @@
+// This index file more or less joins together all the /api routes.
+
 const router = require('express').Router();
 const categoryRoutes = require('./category-routes');
 const productRoutes = require('./product-routes');

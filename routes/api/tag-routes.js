@@ -1,13 +1,14 @@
+
+// This file contains the `/api/tags` endpoint
 const router = require('express').Router();
 const { Tag, Product, ProductTag } = require('../../models');
 
-// The `/api/tags` endpoint
 
+/*This GET route finds all the tags and includes their associated Product data.  I also included the ProductTag
+data for good measure, since ProductTag was imported in the starter code and I wasn't sure where I should use it.*/
 router.get('/', (req, res) => {
-  // find all tags
-  // be sure to include its associated Product data
 
-    Tag.findAll({ include: Product}).then((tagData) => {
+    Tag.findAll({ include: ProductTag, include: Product}).then((tagData) => {
 
     res.json(tagData);
 
@@ -17,11 +18,12 @@ router.get('/', (req, res) => {
     })
 });
 
+
+/* This GET route finds find a single tag by its `id` and includes its associated Product data. I also included the ProductTag
+data for good measure, since ProductTag was imported in the starter code and I wasn't sure where I should use it.*/
 router.get('/:id', (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
-    
-  Tag.findByPk(req.params.id, {include: Product}).then((tagData) => {
+
+  Tag.findByPk(req.params.id, {include: ProductTag, include: Product, }).then((tagData) => {
 
         res.json(tagData);
 
@@ -31,9 +33,9 @@ router.get('/:id', (req, res) => {
     })
 });
 
+//This POST route creates a new tag.
 router.post('/', (req, res) => {
-  // create a new tag
-
+ 
   Tag.create({
 
         tag_name: req.body.tag_name,
@@ -48,8 +50,9 @@ router.post('/', (req, res) => {
     })
 });
 
+ //This PUT route updates a tag's name by its `id` value.
 router.put('/:id', (req, res) => {
-  // update a tag's name by its `id` value
+ 
 
   Tag.update(
 
@@ -72,8 +75,9 @@ router.put('/:id', (req, res) => {
     });
 });
 
+// This DELETE route deletes a tag by its `id` value.
 router.delete('/:id', (req, res) => {
-  // delete on tag by its `id` value
+  
 
   Tag.destroy({
 

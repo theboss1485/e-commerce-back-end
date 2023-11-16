@@ -1,12 +1,15 @@
-// import important parts of sequelize library
+/*This file contains the Product model according to the specifications listed in the assignment instructions.*/
+
+// Here, we import important parts of the Sequelize library.
 const { Model, DataTypes } = require('sequelize');
-// import our database connection from config.js
+
+// Here, we import our database connection from config.js
 const sequelize = require('../config/connection');
 
-// Initialize Product model (table) by extending off Sequelize's Model class
+// Here, we initialize the Product model (table) by extending off Sequelize's Model class.
 class Product extends Model {}
 
-// set up fields and rules for Product model
+// Here, we set up fields and rules for the Product model
 Product.init(
   {
     id: {
@@ -25,9 +28,12 @@ Product.init(
 
         type: DataTypes.DECIMAL,
         allowNull: false,
+
+        /* Here, check that the price is a decimal, but I also give the non-decimal part of the number a limit of 
+        14 digits so as to avoid exceeding the memory limit for decimals. */
         validate: {
 
-            is: /^(?!.*\.$)[0-9]+\.{1}[0-9]{2}$/
+            is: /^[0-9]{1,14}\.{1}[0-9]{2}$/
         }
     },
     stock: {
@@ -35,11 +41,15 @@ Product.init(
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 10,
+
+        /*Here, I check that the stock is an integer, and I also set a generous stock limit of 999,999,999. */
         validate: {
 
             is: /^[0-9]{1,9}$/
         }
     },
+
+    /* The category_id field is a foreign key that references the primary key (id) of the Category model. */
     category_id: {
         
         type: DataTypes.INTEGER,

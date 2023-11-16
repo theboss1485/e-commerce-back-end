@@ -1,3 +1,5 @@
+// This file sets up the database connection for the application.
+
 require('dotenv').config();
 
 const Sequelize = require('sequelize');
