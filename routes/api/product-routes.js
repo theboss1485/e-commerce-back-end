@@ -98,31 +98,31 @@ router.put('/:id', (req, res) => {
             where: { product_id: req.params.id }
             }).then((productTags) => {
 
-            // Here, we create a filtered list of new tag_ids
-            const productTagIds = productTags.map(({ tag_id }) => tag_id);
+                // Here, we create a filtered list of new tag_ids
+                const productTagIds = productTags.map(({ tag_id }) => tag_id);
 
-            const newProductTags = req.body.tagIds
-                .filter((tag_id) => !productTagIds.includes(tag_id))
-                .map((tag_id) => {
-                return {
-                    product_id: req.params.id,
-                    tag_id,
-                };
-                });
+                const newProductTags = req.body.tagIds
+                    .filter((tag_id) => !productTagIds.includes(tag_id))
+                    .map((tag_id) => {
+                    return {
+                        product_id: req.params.id,
+                        tag_id,
+                    };
+                    });
 
-            // Here, we figure out which ones to remove
-            const productTagsToRemove = productTags
-                .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
-                .map(({ id }) => id);
-            // Here, we run both actions
-            return Promise.all([
-                ProductTag.destroy({ where: { id: productTagsToRemove } }),
-                ProductTag.bulkCreate(newProductTags),
-            ]);
+                // Here, we figure out which ones to remove
+                const productTagsToRemove = productTags
+                    .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
+                    .map(({ id }) => id);
+                // Here, we run both actions
+                return Promise.all([
+                    ProductTag.destroy({ where: { id: productTagsToRemove } }),
+                    ProductTag.bulkCreate(newProductTags),
+                ]);
             });
         }
 
-        return res.json(product);
+        return res.status(200).json(product);
 
     }).catch((err) => {
 

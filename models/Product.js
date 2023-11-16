@@ -29,11 +29,12 @@ Product.init(
         type: DataTypes.DECIMAL,
         allowNull: false,
 
-        /* Here, check that the price is a decimal, but I also give the non-decimal part of the number a limit of 
-        14 digits so as to avoid exceeding the memory limit for decimals. */
+        /* Here, I check that the price is a decimal, but I also give the non-decimal part of the number a limit of 
+        13 digits so as to avoid exceeding the memory limit for decimals. */
         validate: {
 
-            is: /^[0-9]{1,14}\.{1}[0-9]{2}$/
+            isDecimal: true,
+            is: /^[0-9]{1,13}\.{1}[0-9]{2}$/
         }
     },
     stock: {
@@ -42,10 +43,12 @@ Product.init(
         allowNull: false,
         defaultValue: 10,
 
-        /*Here, I check that the stock is an integer, and I also set a generous stock limit of 999,999,999. */
+        /*Here, I check that the stock is a positive integer, and I also set a generous stock limit of 999,999,999. */
         validate: {
-
+            
+            isInt: true,
             is: /^[0-9]{1,9}$/
+            
         }
     },
 

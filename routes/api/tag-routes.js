@@ -25,11 +25,11 @@ router.get('/:id', (req, res) => {
 
   Tag.findByPk(req.params.id, {include: ProductTag, include: Product, }).then((tagData) => {
 
-        res.json(tagData);
+        res.status(200).json(tagData);
 
     }).catch((error) => {
 
-        res.json(error);
+        res.status(400).json(error);
     })
 });
 
@@ -42,11 +42,11 @@ router.post('/', (req, res) => {
 
     }).then((newProduct) => {
 
-        res.json(newProduct);
+        res.status(200).json(newProduct);
     
     }).catch((error) =>{
 
-        res.json(error);
+        res.status(400).json(error);
     })
 });
 
@@ -67,11 +67,11 @@ router.put('/:id', (req, res) => {
     
     }).then((updatedTag) => {
 
-        res.json(updatedTag);
+        res.status(200).json(updatedTag);
 
     }).catch((error) => {
 
-        res.json(error);
+        res.status(400).json(error);
     });
 });
 
@@ -90,11 +90,11 @@ router.delete('/:id', (req, res) => {
 
         console.log("deletion", deletedTag)
 
-        res.json(deletedTag);
+        res.status(200).json(deletedTag);
 
     }).catch((error) => {
 
-        res.json(error)
+        res.status(400).json(error)
     })
 });
 

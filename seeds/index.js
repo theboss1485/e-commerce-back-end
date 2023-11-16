@@ -1,3 +1,5 @@
+// This index file runs all the other methods to seed the database.
+
 const seedCategories = require('./category-seeds');
 const seedProducts = require('./product-seeds');
 const seedTags = require('./tag-seeds');
